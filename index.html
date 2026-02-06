@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rose Day 🌹</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ffb199);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.card {
+  width: 90%;
+  max-width: 420px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+h1 {
+  font-weight: 500;
+  color: #e60039;
+}
+
+button {
+  padding: 12px 22px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 8px;
+  background: #e60039;
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover { transform: scale(1.1); }
+
+#no {
+  background: black;
+  position: absolute;
+}
+
+.page { display: none; }
+.active { display: block; }
+
+.rose {
+  font-size: 60px;
+  cursor: pointer;
+  margin: 15px 0;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
+}
+
+.letter {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
+  margin-top: 10px;
+  white-space: pre-line;
+  text-align: left;
+}
+
+.petals {
+  position: absolute;
+  font-size: 20px;
+  animation: fall 6s linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-10vh);}
+  100% {transform: translateY(110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- PAGE 1 -->
+<div id="p1" class="page active">
+<h1>Happy Rose Day kitu 🌹</h1>
+<button onclick="yes()">Take this rose</button>
+<button id="no">No</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="p2" class="page">
+<h1>This rose is yours ❤️</h1>
+<p>Tap the rose</p>
+<div class="rose" onclick="proposal()">🌹</div>
+</div>
+
+<!-- PAGE 3 -->
+<div id="p3" class="page">
+<h1>Bas ye kehna tha…</h1>
+<div class="letter" id="letter"></div>
+</div>
+
+</div>
+
+<script>
+const text = `Main tumse bohot pyaar karta hu, kitu… itna ki kabhi kabhi khud samajh nahi aata is feeling ko kaise sambhalu. Shayad main utna express nahi kar paata, par har din, har waqt tum mere andar rehti ho. Jab tum nahi hoti na, main sirf miss nahi karta — ek ajeeb sa khaali pan feel hota hai. Jaise kuch important cheez mere paas nahi hai. Har chhoti baat pe tera khayal aata hai, aur main bas sochta rehta hu kaash tu yahin hoti.
+
+Tune sach me mujhe pagal sa kar diya hai… par mujhe ye pagalpan pasand hai, kyunki isme tum ho. Ab tu meri hai, sirf bolne ke liye nahi — dil se. Jo bhi feel kare na, hamesha mujhe bataya kar. Apni tension kabhi akeli mat lena, main hu tere liye. Chahe distance ho, problem ho, ya kuch bhi ho — main tere side khada hu, hamesha.
+
+Main tumse itna pyaar karta hu ki words chhote pad jaate hain. Bas ek baat yaad rakh… tu kabhi akeli nahi hai. Jab tak main hu, tera haath mere haath me hai — chahe door hi kyu na ho. 💗`;
+
+let i = 0;
+function type(){
+  if(i<text.length){
+    document.getElementById("letter").innerHTML += text[i];
+    i++;
+    setTimeout(type,35);
+  }
+}
+
+function yes(){ switchPage(2); }
+function proposal(){ switchPage(3); type(); }
+
+function switchPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+}
+
+const no=document.getElementById("no");
+no.addEventListener("mouseover",()=>{
+  no.style.left=Math.random()*250+"px";
+  no.style.top=Math.random()*150+"px";
+});
+
+/* falling roses */
+setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="petals";
+  p.innerHTML="🌹";
+  p.style.left=Math.random()*100+"vw";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),6000);
+},1000);
+</script>
+
+</body>
+</html>
